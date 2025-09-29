@@ -1,0 +1,188 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reservas Barbería</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <!-- Sidebar lateral flotante -->
+  <div class="sidebar">
+    <a href="#" class="icon-btn" title="Inicio"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+    <a href="#" class="icon-btn" title="Servicios"><i class="fab fa-facebook"></i></a>
+    <a href="#" class="icon-btn" title="Contacto"><i class="fab fa-whatsapp"></i></a>
+    <a href="#" id="openBarberModal" class="icon-btn" title="Contacto"><i class="fas fa-user" aria-hidden="true"></i></a>
+
+  </div>
+
+  <div class="wizard-container glass">
+
+    <!-- Barra de progreso -->
+    <div class="wizard-progress">
+      <div class="wizard-progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Paso 1: Servicios -->
+    <div class="wizard-step active" id="step1">
+      <h2>1. Selecciona un servicio</h2>
+      <div class="grid">
+        <div class="card service-card" data-name="Corte de Cabello" data-price="20000">
+          <img src="image-path/a1.jpg" alt="Corte de Cabello">
+          <h3>Corte de Cabello</h3>
+          <p>Estilo clásico o moderno.</p>
+          <span class="precio">$20.000</span>
+          <button class="btn-glass select-service">Seleccionar</button>
+        </div>
+        <div class="card service-card" data-name="Arreglo de Barba" data-price="15000">
+          <img src="image-path/a2.jpg" alt="Arreglo de Barba">
+          <h3>Arreglo de Barba</h3>
+          <p>Definición y estilo profesional.</p>
+          <span class="precio">$15.000</span>
+          <button class="btn-glass select-service">Seleccionar</button>
+        </div>
+        <div class="card service-card" data-name="Tinte Cabello" data-price="35000">
+          <img src="image-path/a3.jpg" alt="Tinte Cabello">
+          <h3>Tinte Cabello</h3>
+          <p>Coloración y retoque premium.</p>
+          <span class="precio">$35.000</span>
+          <button class="btn-glass select-service">Seleccionar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 2: Barbero -->
+    <div class="wizard-step" id="step2">
+      <h2>2. Elige tu barbero</h2>
+      <div class="grid">
+        <div class="card barber-card" data-barber="Carlos">
+          <img src="image-path/barbero1.jpg" alt="Carlos">
+          <h3>Carlos</h3>
+          <p>Experto en cortes modernos.</p>
+        </div>
+        <div class="card barber-card" data-barber="Andrés">
+          <img src="image-path/barbero2.jpg" alt="Andrés">
+          <h3>Andrés</h3>
+          <p>Especialista en barba y detalles.</p>
+        </div>
+        <div class="card barber-card" data-barber="Julián">
+          <img src="image-path/barbero3.jpg" alt="Julián">
+          <h3>Julián</h3>
+          <p>Retoques y coloración premium.</p>
+        </div>
+      </div>
+      <div class="wizard-controls">
+        <button class="btn-glass ghost" id="backToStep1">← Volver</button>
+
+      </div>
+    </div>
+
+    <!-- Paso 3: Datos -->
+    <div class="wizard-step" id="step3">
+      <h2>3. Completa tus datos</h2>
+      <form id="miFormulario" class="form-glass">
+        <input type="hidden" name="servicio" id="campoServicio">
+        <input type="hidden" name="barbero" id="campoBarbero">
+        <div class="input-group">
+          <input type="text" name="nombre" required>
+          <label>Nombre completo</label>
+        </div>
+        <div class="input-group">
+          <input type="text" name="telefono" required>
+          <label>Teléfono</label>
+        </div>
+        <input type="hidden" name="fecha" id="campoFecha">
+        <input type="hidden" name="hora" id="campoHora">
+        <div id="slotsContainer" class="slots-container"></div>
+        <input type="hidden" name="estado" value="Pendiente">
+        <div class="wizard-controls">
+          <button type="button" class="btn-glass ghost" id="backToStep2">← Volver</button>
+          <button type="submit" class="btn-glass">Confirmar y Enviar</button>
+        </div>
+      </form>
+      <p id="respuesta" class="respuesta"></p>
+    </div>
+
+  </div>
+
+
+  <!-- Modal de confirmación -->
+<div id="confirmModal" class="confirm-modal">
+  <div class="confirm-content">
+    <div class="checkmark">
+      ✓
+    </div>
+    <p>Cita agendada exitosamente</p>
+    <p style="font-size: 15px; color: rgb(250, 250, 250); ">Serás redirigido con tu barbero.</p>
+  </div>
+</div>
+
+
+<!-- Modal Administrar Barberos -->
+<!-- Modal Perfil de Barbero -->
+<!-- Modal Perfil de Usuario -->
+<div id="userModal" class="barber-modal">
+  <div class="barber-modal-content glass profile-modal">
+    <button id="closeUserModal" class="close-btn">✖</button>
+    <div class="profile-layout">
+      
+      <!-- Avatar -->
+      <div class="avatar-wrapper" onclick="document.getElementById('fileInput').click()">
+      <i class="fas fa-image placeholder-icon"></i>
+      <img id="avatarPreview" src="" alt="Avatar">
+      <i class="fas fa-camera camera-icon"></i>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" style="display:none;">
+
+
+     <!-- Campos -->
+<form id="userForm" class="profile-info">
+  <h2>Agregar Nuevo Barbero</h2>
+  
+  <!-- Fila 1 -->
+  <div class="input-row">
+    <div class="input-group short">
+      <input type="text" id="nombreBarbero" required>
+      <label>Nombre completo</label>
+    </div>
+    <div class="input-group short">
+      <input type="text" id="diasDisponibles" required>
+      <label>Días Disponible</label>
+    </div>
+    <div class="input-group short">
+      <input type="text" id="horario" required>
+      <label>Horario</label>
+    </div>
+  </div>
+
+  <!-- Fila 2 -->
+  <div class="input-row">
+    <div class="input-group short">
+      <input type="text" id="telefono" required>
+      <label>Teléfono</label>
+    </div>
+    <div class="input-group short">
+      <input type="text" id="descripcion" required>
+      <label>Descripción</label>
+    </div>
+  </div>
+
+  <!-- Botones -->
+  <div class="button-row">
+    <button type="button" class="btn-glass save-btn" id="guardarBarberoBtn">Guardar</button>
+    <button type="submit" class="btn-glass">Actualizar</button>
+    <button type="button" id="verListaBtn" class="btn-glass" style="background:#007bff;">Ver Lista</button>
+  </div>
+</form>
+
+    </div>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
