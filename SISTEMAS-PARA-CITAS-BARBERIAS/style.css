@@ -1,0 +1,498 @@
+/* General */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: url('image-path/bg1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Glass container */
+.glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+}
+
+.wizard-container {
+  width: 95%;
+  max-width: 800px;
+  padding: 30px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 80%;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar flotante */
+.sidebar {
+  width: 20px;
+  min-height: 30vh;
+  position: fixed;
+  top: 50%;
+  left: 200px;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 25px 15px;
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 1000;
+}
+
+.sidebar .icon-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 50px;
+  color: #00e1ff;
+  font-size: 1.1rem;
+  background: rgba(255,255,255,0.15);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.sidebar .icon-btn:hover {
+  background: linear-gradient(90deg,#00d4ff,#00ffa8);
+  color: #022;
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Progress bar */
+.wizard-progress {
+  height: 6px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  margin-bottom: 25px;
+  overflow: hidden;
+}
+
+.wizard-progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg,#00d4ff,#00ff9d);
+  transition: width 0.4s ease;
+}
+
+/* Steps */
+.wizard-step {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+.wizard-step.active { display: block; }
+@keyframes fadeIn { from {opacity:0; transform: translateX(20px);} to {opacity:1; transform: translateX(0);} }
+
+/* Grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 20px; }
+
+/* Cards */
+.card { padding: 20px; border-radius: 15px; background: rgba(255,255,255,0.15); text-align: center; transition: transform 0.2s; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
+.card:hover { transform: translateY(-5px); }
+.card img { width: 100%; height: 140px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; }
+.precio { font-weight: bold; color: #00e1ff; }
+.btn-glass { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 10px 20px; border-radius: 12px; cursor: pointer; transition: all 0.3s; }
+.btn-glass:hover { background: rgba(0,212,255,0.5); border-color: rgba(0,212,255,0.8); }
+.btn-glass.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.4); }
+
+/* Form */
+.form-glass { display: flex; flex-direction: column; gap: 20px; }
+.input-group { position: relative;  margin-bottom: 1rem; /* separa verticalmente */ }
+.input-group input { width: 100%; padding: 14px; border-radius: 12px; border: none; background: rgba(255,255,255,0.2); color: #fff; font-size: 1rem; }
+.input-group label { position: absolute; left: 14px; top: 14px; color: rgba(255,255,255,0.6); pointer-events: none; transition: 0.3s; }
+.input-group input:focus + label, .input-group input:valid + label { top: -10px; left: 10px; font-size: 0.8rem; color: #00e1ff; }
+.two-cols { display: flex; gap: 15px; }
+.two-cols .input-group { flex: 1; }
+.respuesta { margin-top: 15px; font-size: 0.95rem; color: #00ffb7; text-align: center; }
+
+/* Controls */
+.wizard-controls { margin-top: 25px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+/* Slots */
+.slots-container { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+.slot-row { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 10px; border: 1px solid rgba(255,255,255,0.03); }
+.date-label { display:flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; color: #eafcff; font-weight: 700; }
+.hours { display:flex; gap: 8px; flex-wrap: wrap; }
+.slot { padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.04); cursor: pointer; font-weight: 600; color: #fff; min-width: 72px; text-align: center; transition: transform .12s, box-shadow .12s; font-size: 0.9rem; }
+.slot:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+.slot.selected { background: linear-gradient(90deg,#00d4ff,#00ffa8); color: #022; transform: scale(1.02); border-color: rgba(0,212,255,0.8); }
+.no-slots { padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.8); }
+
+/* Responsive: sidebar en mobile arriba */
+@media (max-width: 1024px) {
+  .wizard-container { padding: 20px; max-height: 90vh; margin-left: 0; }
+  .sidebar { position: relative; transform: none; width: 100%; flex-direction: row; justify-content: space-around; margin-bottom: 20px; min-height: auto; padding: 10px 0; border-radius: 12px; }
+  .sidebar .icon-btn { width: auto; height: 40px; padding: 0 12px; font-size: 1rem; }
+}
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start;
+    height: auto;
+    padding: 10px;
+  }
+  .wizard-container {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .two-cols {
+    flex-direction: column;
+  }
+  .slot {
+    min-width: 60px;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+  .sidebar {
+    display: none; /* oculta el sidebar en mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .wizard-container { padding: 15px; border-radius: 12px; }
+  .card { padding: 15px; }
+  .card img { height: 100px; }
+  .btn-glass { padding: 8px 14px; font-size: 0.9rem; }
+  .input-group input { padding: 12px; font-size: 0.9rem; }
+  .wizard-controls { flex-direction: column; align-items: stretch; }
+  .slot { min-width: 50px; padding: 6px; font-size: 0.8rem; }
+}
+
+
+.week-nav {
+  display: flex;
+  justify-content: space-between; /* asegura que los botones queden en extremos */
+  align-items: center;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #fff;
+  gap: 10px;
+}
+
+.week-nav .nav-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0; /* evita que se encojan */
+}
+
+.week-nav .nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+
+
+/* --- Modal de confirmación --- */
+.confirm-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 20px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #00ffb7;
+  font-weight: 600;
+  font-size: 1.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease;
+  z-index: 9999;
+}
+
+.confirm-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+  animation: modalPop 0.6s ease forwards;
+}
+
+.confirm-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.checkmark {
+  font-size: 2.5rem;
+  color: #00ff9d;
+  animation: checkAnim 0.6s ease;
+}
+
+/* Animación futurista del modal */
+@keyframes modalPop {
+  0% { transform: translate(-50%, -50%) scale(0.8) rotateX(90deg); opacity: 0; }
+  50% { transform: translate(-50%, -50%) scale(1.05) rotateX(20deg); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1) rotateX(0deg); opacity: 1; }
+}
+
+/* Animación check */
+@keyframes checkAnim {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.3) rotate(20deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Ocultar modal con fade futurista */
+.confirm-modal.hide {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5) rotateX(90deg);
+}
+
+
+/* Modal Barberos */
+.barber-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(6px);
+}
+
+.barber-modal.show { display: flex; }
+
+.barber-modal-content {
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  padding: 30px;
+  border-radius: 20px;
+  overflow-y: auto;
+  animation: modalFade 0.4s ease;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.barber-card-admin {
+  position: relative;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  color: #fff;
+}
+
+.barber-card-admin img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.barber-card-admin h3 { margin: 8px 0 4px; }
+.barber-card-admin p { font-size: 0.9rem; color: #ddd; }
+
+.barber-card-admin .delete-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: rgba(255,0,0,0.6);
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 6px 8px;
+  font-size: 0.8rem;
+  transition: background 0.3s;
+}
+.barber-card-admin .delete-btn:hover { background: rgba(255,0,0,0.9); }
+
+
+/* --- Modal Perfil Usuario --- */
+.profile-modal {
+  max-width: 800px;
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+}
+
+.profile-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.profile-avatar {
+  flex: 1;
+  text-align: center; 
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 180px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  border: 2px dashed rgba(255,255,255,0.4);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.avatar-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none; /* oculto hasta que suban imagen */
+  border-radius: 20px;
+}
+
+.avatar-wrapper.has-image img {
+  display: block;
+}
+
+.avatar-wrapper .placeholder-icon {
+  font-size: 4rem;  /* 👈 más grande */
+  color: rgba(255,255,255,0.7);
+  pointer-events: none;
+}
+
+.avatar-wrapper.has-image .placeholder-icon {
+  display: none;
+}
+
+.camera-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  padding: 6px;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.profile-info {
+  flex: 2;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+
+/* Ajustes inputs más cortos */
+.input-row {
+   display: flex;
+  gap: 2rem;           /* 👈 separa horizontalmente */
+  margin-bottom: rem; /* 👈 separa verticalmente entre filas */
+  flex-wrap: wrap;     /* si no caben, bajan a otra línea */
+}
+
+.input-group.short {
+  flex: 1;
+  min-width: 200px; /* no se hacen demasiado pequeños */
+}
+
+/* Botones lado a lado */
+.button-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Botón guardar en verde */
+.save-btn {
+  background: #28a745; /* verde */
+  color: #fff;
+}
+
+/* Avatar fijo */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.avatar-wrapper img {
+  border-radius: 22px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.1);
+}
+
+/* Placeholder + cuando no hay imagen */
+.placeholder {
+  display: none;
+}
+
+.avatar-wrapper .placeholder-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: rgba(255,255,255,0.6);
+  pointer-events: none;
+}
+
+.avatar-wrapper.has-image .placeholder-icon {
+  display: none;
+}
+
+.camera-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  padding: 6px;
+  color: #fff;
+}
+
+
+.swal2-container {
+  z-index: 99999 !important;
+}
+
