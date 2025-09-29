@@ -15,7 +15,7 @@ let fechaIndex = 0;
 // Mapea barbero → número de WhatsApp
 const BARBER_WHATSAPP = {
   "Carlos": "573001112233",    // ejemplo (código de país sin +)
-  "Andrés": "573213605585",
+  "Jorge": "573213605585",
   "Julian": "573007778899"
 };
 
@@ -652,6 +652,7 @@ async function renderBarberList() {
 document.getElementById('verListaBtn').addEventListener('click', () => {
   renderBarberList();
 });
+
 
 
 
